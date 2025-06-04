@@ -1,0 +1,11 @@
+Requirements
+ - Product listing
+ - Product Details - image, name, description and price
+ - Add to cart
+ - Edit cart
+ - Global toast
+
+
+Api Routes
+ - Get products - paginated
+ - Checkout cart

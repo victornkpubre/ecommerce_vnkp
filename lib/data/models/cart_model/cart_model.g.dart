@@ -17,7 +17,7 @@ class CartItemModelAdapter extends TypeAdapter<CartItemModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return CartItemModel(
-      product: fields[0] as int,
+      product: fields[0] as ProductEntity,
       quantity: fields[1] as int,
     );
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatelessWidget {
-  static const String routeName = '/home';
+  static const String routeName = '/';
   const SplashScreen({super.key});
 
   @override

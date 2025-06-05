@@ -5,15 +5,17 @@ class ProductModel {
   final String name;
   final String image;
   final String description;
+  final double price;
 
-  ProductModel({required this.id, required this.name, required this.image, required this.description});
+  ProductModel({required this.price, required this.id, required this.name, required this.image, required this.description});
 
   ProductEntity toDomain(){
     return ProductEntity(
         id: id,
         name: name,
         image: image,
-        description: description
+        description: description,
+        price: price
     );
   }
 

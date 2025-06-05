@@ -1,3 +1,4 @@
+import 'package:ecommerce_vnkp/domain/entities/product_entity.dart';
 import 'package:hive/hive.dart';
 import 'package:ecommerce_vnkp/domain/entities/cart_entity.dart';
 
@@ -6,7 +7,7 @@ part 'cart_model.g.dart';
 @HiveType(typeId: 0)
 class CartItemModel extends HiveObject {
   @HiveField(0)
-  final int product;
+  final ProductEntity product;
 
   @HiveField(1)
   final int quantity;

@@ -1,13 +1,44 @@
-class CartEntity {
-  final List<CartItemEntity> products;
+import 'package:ecommerce_vnkp/domain/entities/product_entity.dart';
 
-  CartEntity({required this.products});
+class CartEntity {
+  List<CartItemEntity> products;
+
+  CartEntity({this.products = const []});
+
+  CartEntity add(ProductEntity product) {
+    final index = products.indexWhere((item) => item.product == product.id);
+    if (index != -1) {
+      products[index].quantity++;
+    } else {
+      products.add(CartItemEntity(product: product, quantity: 1));
+    }
+
+    return CartEntity(products: products);
+  }
+
+  CartEntity remove(ProductEntity product) {
+    final index = products.indexWhere((item) => item.product.id == product.id);
+    if (index != -1) {
+      if(products[index].quantity > 1){
+        products[index].quantity--;
+      } else {
+        products.removeAt(index);
+      }
+    }
+
+    return CartEntity(products: products);
+  }
+
+  CartEntity clear() {
+    products.clear();
+    return CartEntity(products: products);
+  }
 
 }
 
 class CartItemEntity {
-  final int product;
-  final int quantity;
+  final ProductEntity product;
+  int quantity;
 
   CartItemEntity({required this.product, required this.quantity});
 

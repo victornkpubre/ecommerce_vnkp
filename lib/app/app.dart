@@ -32,7 +32,7 @@ class _ECommerceAppState extends State<ECommerceApp> {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
           useMaterial3: true,
         ),
-        initialRoute: Routes.splashRoute,
+        initialRoute: Routes.home,
         onGenerateRoute: RouteGenerator.getRoute
         ),
     );

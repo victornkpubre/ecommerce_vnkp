@@ -1,3 +1,4 @@
+import 'package:ecommerce_vnkp/domain/entities/product_entity.dart';
 import 'package:ecommerce_vnkp/presentation/views/cart/cart_view.dart';
 import 'package:ecommerce_vnkp/presentation/views/home/home_view.dart';
 import 'package:ecommerce_vnkp/presentation/views/home/product_view.dart';
@@ -16,11 +17,11 @@ class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
 
-      case (Routes.splashRoute):
+      case Routes.splashRoute:
         return MaterialPageRoute(
             builder: ((context) => const SplashScreen()));
 
-      case (Routes.home):
+      case Routes.home:
         return MaterialPageRoute(
             builder: ((context) => const HomeView()));
 
@@ -29,8 +30,10 @@ class RouteGenerator {
             builder: ((context) => const CartView()));
 
       case (Routes.product):
+        final product = routeSettings.arguments as ProductEntity;
         return MaterialPageRoute(
-            builder: ((context) => const ProductView()));
+          builder: (context) => ProductView(product: product),
+        );
 
       default:
         return unDefinedRoute();

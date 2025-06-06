@@ -1,16 +1,15 @@
 # ecommerce_vnkp
 
-A new Flutter project.
+Handin for eCommercer Exercise.
 
-## Getting Started
+## Tech Stack
+Flutter - 3.32.1 
+Dart -  3.8.1 
+Dependecies - flutter_bloc, flutter_svg, dartz, provider
 
-This project is a starting point for a Flutter application.
+## Setup
+1. Clone the repository
+git clone https://github.com/your-username/your-flutter-app.git
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+2. Get Flutter packages
+flutter pub get

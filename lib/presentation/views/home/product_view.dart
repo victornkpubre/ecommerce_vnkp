@@ -1,12 +1,13 @@
 import 'package:ecommerce_vnkp/app/constants.dart';
 import 'package:ecommerce_vnkp/app/routes.dart';
 import 'package:ecommerce_vnkp/domain/entities/product_entity.dart';
-import 'package:ecommerce_vnkp/presentation/viewmodel/shopping_viewmodel/shopping_viewmodel.dart';
+import 'package:ecommerce_vnkp/presentation/viewmodel/cart_viewmodel/cart_bloc.dart';
+import 'package:ecommerce_vnkp/presentation/viewmodel/products_viewmodel/product_viewmodel.dart';
 import 'package:ecommerce_vnkp/presentation/views/common/toast.dart';
 import 'package:ecommerce_vnkp/presentation/views/home/components/widgets/primary_btn_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:flutter_svg/flutter_svg.dart';
 import 'components/widgets/header_widget.dart';
 
 class ProductView extends StatelessWidget {
@@ -19,7 +20,7 @@ class ProductView extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
 
-    return BlocListener<ShoppingViewModel, ShoppingState>(
+    return BlocListener<CartBloc, CartState>(
       listener: (context, state) {
         if(state is CartIncreased) {
           AppToast.show(
@@ -27,7 +28,6 @@ class ProductView extends StatelessWidget {
             message: "Item has been added to cart",
           );
         }
-
       },
       child: Scaffold(
         body: SafeArea(
@@ -72,14 +72,45 @@ class ProductView extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Hero(
-                          tag: 'product_image_${product.id}',
-                          child: Image.network(
-                            product.image,
-                            height: height / 3,
-                            width: height / 3,
-                            fit: BoxFit.contain,
-                          ),
+                        Stack(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.symmetric(vertical: 32),
+                              decoration: BoxDecoration(
+                                color: AppColor.background,
+                              ),
+                              width: double.infinity,
+                              child: Hero(
+                                tag: 'product_image_${product.id}',
+                                child: Image.network(
+                                  product.image,
+                                  height: height / 3,
+                                  width: height / 3,
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                            ),
+
+                            Align(
+                              alignment: Alignment.topRight,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  shape: BoxShape.circle
+                                ),
+                                padding: EdgeInsets.all(10),
+                                margin: EdgeInsets.all(16),
+                                child: BlocBuilder<ProductViewModel, ProductState>(
+                                  builder: (context, state) {
+                                    return SvgPicture.asset(
+                                      AppIcons.favorite,
+                                      width: 32,
+                                    );
+                                  }
+                                ),
+                              ),
+                            )
+                          ],
                         ),
                         const SizedBox(height: 16),
 
@@ -128,18 +159,20 @@ class ProductView extends StatelessWidget {
                 // Add to cart button
                 Align(
                   alignment: Alignment.bottomCenter,
-                  child: BlocBuilder<ShoppingViewModel, ShoppingState>(
+                  child: BlocBuilder<CartBloc, CartState>(
                     builder: (context, state) {
-                      final loading = state is CheckingOut;
+                      final loading = state is CartLoading;
+                      final products = context.read<ProductViewModel>().state.products;
+
                       return Column(
                         children: [
                           PrimaryButtonWidget(
                             onTap: () {
-                              context.read<ShoppingViewModel>().add(
+                              context.read<CartBloc>().add(
                                 AddProductToCart(
-                                  currentProductIndex: product.id,
                                   cart: state.cart,
-                                  products: state.products,
+                                  currentProductIndex: product.id - 1,
+                                  products: products,
                                 ),
                               );
                             },

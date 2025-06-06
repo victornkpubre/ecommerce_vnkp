@@ -1,7 +1,8 @@
 import 'package:ecommerce_vnkp/app/constants.dart';
 import 'package:ecommerce_vnkp/domain/entities/cart_entity.dart';
 import 'package:ecommerce_vnkp/presentation/viewmodel/btm_navigation_viewmodel/btm_nav_viewmodel.dart';
-import 'package:ecommerce_vnkp/presentation/viewmodel/shopping_viewmodel/shopping_viewmodel.dart';
+import 'package:ecommerce_vnkp/presentation/viewmodel/cart_viewmodel/cart_bloc.dart';
+import 'package:ecommerce_vnkp/presentation/viewmodel/products_viewmodel/product_viewmodel.dart';
 import 'package:ecommerce_vnkp/presentation/views/home/components/views/products_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,7 +26,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     super.initState();
-    context.read<ShoppingViewModel>().add(FetchProducts(
+    context.read<ProductViewModel>().add(FetchProducts(
         page: currentPage,
         products: const [],
         currentProductIndex: 0,
@@ -39,9 +40,10 @@ class _HomeViewState extends State<HomeView> {
     final width = MediaQuery.of(context).size.width;
     final btmNavigationViewModel = context.read<BottomNavViewModel>();
 
-    return BlocBuilder<ShoppingViewModel, ShoppingState>(
+    return BlocBuilder<CartBloc, CartState>(
       builder: (context, state) {
-        final cartItemCount = state.cart.products.length;
+        final cart = state.cart;
+        final cartItemCount = cart.products.length;
 
         return Scaffold(
           bottomNavigationBar: BottomNavView(
@@ -100,31 +102,15 @@ class _HomeViewState extends State<HomeView> {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                      child: BlocConsumer<ShoppingViewModel, ShoppingState>(
+                      child: BlocConsumer<ProductViewModel, ProductState>(
                         listener: (context, state) {
-                          // switch (state.runtimeType) {
-                          //   case CartCheckedOut:
-                          //     final confirmation = (state as CartCheckedOut).confirmation;
-                          //     break;
-                          //
-                          //   case ProductsLoadFailure:
-                          //     final message = (state as ProductsLoadFailure).message;
-                          //     break;
-                          //
-                          //   case CartCheckoutFailure:
-                          //     final message = (state as CartCheckoutFailure).message;
-                          //     break;
-                          //
-                          //   default:
-                          //     break;
-                          // }
+                          
                         },
                         builder: (context, state) {
                           final products = state.products;
-                          final cart = state.cart;
                           final currentProductIndex = state.currentProductIndex;
 
-                          //Show grid shimmer id projects is empty
+
                           if(products.isEmpty) {
                             return Container();
                           }
@@ -132,7 +118,7 @@ class _HomeViewState extends State<HomeView> {
                           return ProductGridView(
                             height: height,
                             products: products,
-                            onEndReached: () => context.read<ShoppingViewModel>()
+                            onEndReached: () => context.read<ProductViewModel>()
                                .add(FetchProducts(
                                   page: ++currentPage,
                                   products: products,

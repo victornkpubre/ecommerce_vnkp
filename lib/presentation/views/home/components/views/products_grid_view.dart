@@ -1,6 +1,6 @@
 import 'package:ecommerce_vnkp/app/routes.dart';
 import 'package:ecommerce_vnkp/domain/entities/product_entity.dart';
-import 'package:ecommerce_vnkp/presentation/viewmodel/shopping_viewmodel/shopping_viewmodel.dart';
+import 'package:ecommerce_vnkp/presentation/viewmodel/products_viewmodel/product_viewmodel.dart';
 import 'package:ecommerce_vnkp/presentation/views/home/components/widgets/product_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -88,10 +88,9 @@ class _ProductGridViewState extends State<ProductGridView> {
             },
           ),
         ),
-        BlocBuilder<ShoppingViewModel, ShoppingState>(
+        BlocBuilder<ProductViewModel, ProductState>(
           builder: (context, state) {
-            bool loading = (state is ProductsLoaded);
-            loading = (state is ProductsLoading);
+            bool loading = (state is ProductsLoading);
 
             return Container(
               child: loading?

@@ -18,6 +18,7 @@ class AppIcons {
 class AppColor {
   static Color primaryColor = const Color(0xFF60B5FF);
   static Color secondaryColor = const Color(0xFF078CFF);
+  static Color background = const Color(0xFFF6F5F8);
 }
 class AppString {
   static String address  = "DELIVERY ADDRESS";

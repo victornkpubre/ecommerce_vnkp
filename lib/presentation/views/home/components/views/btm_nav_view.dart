@@ -1,8 +1,10 @@
 import 'package:ecommerce_vnkp/app/constants.dart';
 import 'package:ecommerce_vnkp/app/routes.dart';
 import 'package:ecommerce_vnkp/presentation/viewmodel/btm_navigation_viewmodel/btm_nav_viewmodel.dart';
+import 'package:ecommerce_vnkp/presentation/views/home/components/widgets/bottom_nav_icon_badge_widget.dart';
 import 'package:ecommerce_vnkp/presentation/views/home/components/widgets/bottom_nav_icon_widget.dart';
 import 'package:flutter/material.dart';
+
 class BottomNavView extends StatefulWidget {
   final BottomNavViewModel viewModel;
   final int? initialIndex;
@@ -20,10 +22,17 @@ class BottomNavView extends StatefulWidget {
 }
 
 class _BottomNavViewState extends State<BottomNavView> {
-  static const double iconSize = 32; // control all icons size here
+  static const double iconSize = 32;
+
+  @override
+  void initState() {
+    print("Building Nav Bar: cart count is ${widget.cartItemCount}");
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+
     return StreamBuilder<int>(
       stream: widget.viewModel.indexStream,
       initialData: widget.viewModel.currentIndex,
@@ -55,76 +64,8 @@ class _BottomNavViewState extends State<BottomNavView> {
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  BottomNavIconWidget(
-                    assetPath: AppIcons.cart,
-                    isActive: false,
-                    iconSize: iconSize,
-                  ),
-                  if (widget.cartItemCount > 0) // show badge only if count > 0
-                    Positioned(
-                      right: -6,
-                      top: -6,
-                      child: Container(
-                        padding: const EdgeInsets.all(4),
-                        decoration: BoxDecoration(
-                          color: Colors.red,
-                          shape: BoxShape.circle,
-                        ),
-                        constraints: const BoxConstraints(
-                          minWidth: 18,
-                          minHeight: 18,
-                        ),
-                        child: Text(
-                          '${widget.cartItemCount}',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                ],
-              ),
-              activeIcon: Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  BottomNavIconWidget(
-                    assetPath: AppIcons.cart,
-                    isActive: true,
-                    iconSize: iconSize,
-                  ),
-                  if (widget.cartItemCount > 0)
-                    Positioned(
-                      right: -6,
-                      top: -6,
-                      child: Container(
-                        padding: const EdgeInsets.all(4),
-                        decoration: BoxDecoration(
-                          color: Colors.grey,
-                          shape: BoxShape.circle,
-                        ),
-                        constraints: const BoxConstraints(
-                          minWidth: 18,
-                          minHeight: 18,
-                        ),
-                        child: Text(
-                          '${widget.cartItemCount}',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                ],
-              ),
+              icon: CartIconWithBadge(),
+              activeIcon: CartIconWithBadge(isActive: true),
               label: 'Cart',
             ),
 

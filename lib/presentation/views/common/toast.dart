@@ -4,7 +4,7 @@ class AppToast {
   static void show({
     required BuildContext context,
     required String message,
-    Duration duration = const Duration(seconds: 3),
+    Duration duration = const Duration(milliseconds: 1500),
   }) {
     final overlay = Overlay.of(context);
     late OverlayEntry overlayEntry; // Declare it first
@@ -84,7 +84,7 @@ class _DropDownToastWidgetState extends State<_DropDownToastWidget>
             decoration: BoxDecoration(
               color: Colors.white,
               border: Border(
-                left: BorderSide(color: Colors.green, width: 3),
+                left: BorderSide(color: Colors.green, width: 6),
               ),
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
@@ -98,7 +98,7 @@ class _DropDownToastWidgetState extends State<_DropDownToastWidget>
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(Icons.check_circle, color: Colors.green),
+                Icon(Icons.check_circle_outline, color: Colors.green),
                 const SizedBox(width: 32),
                 Expanded(
                   child: Text(

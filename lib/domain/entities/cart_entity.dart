@@ -6,7 +6,7 @@ class CartEntity {
   CartEntity({this.products = const []});
 
   CartEntity add(ProductEntity product) {
-    final index = products.indexWhere((item) => item.product == product.id);
+    final index = products.indexWhere((item) => item.product.id == product.id);
     if (index != -1) {
       products[index].quantity++;
     } else {
@@ -19,7 +19,7 @@ class CartEntity {
   CartEntity remove(ProductEntity product) {
     final index = products.indexWhere((item) => item.product.id == product.id);
     if (index != -1) {
-      if(products[index].quantity > 1){
+      if (products[index].quantity > 1) {
         products[index].quantity--;
       } else {
         products.removeAt(index);
@@ -29,11 +29,27 @@ class CartEntity {
     return CartEntity(products: products);
   }
 
+  CartEntity removeProduct(ProductEntity product) {
+    final index = products.indexWhere((item) => item.product.id == product.id);
+    if (index != -1) {
+      products.removeAt(index);
+    }
+    return CartEntity(products: products);
+  }
+
   CartEntity clear() {
     products.clear();
     return CartEntity(products: products);
   }
 
+  @override
+  String toString() {
+    if (products.isEmpty) return 'Cart is empty';
+
+    return 'Cart contents:\n' +
+        products.map((item) => '- ${item.product.name} (ID: ${item.product
+            .id}): Quantity = ${item.quantity}').join('\n');
+  }
 }
 
 class CartItemEntity {

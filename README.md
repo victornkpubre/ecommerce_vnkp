@@ -13,3 +13,6 @@ git clone https://github.com/your-username/your-flutter-app.git
 
 2. Get Flutter packages
 flutter pub get
+
+2. Run Application
+flutter run

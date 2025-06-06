@@ -18,7 +18,8 @@ flutter pub get
 flutter run
 
 ## Screenshoots
-![Alt text](https://res.cloudinary.com/dgezxosfy/image/upload/v1749211127/Screenshot_2025.06.06_12.45.24.864_taymau.png)
+<img src="https://res.cloudinary.com/dgezxosfy/image/upload/v1749211127/Screenshot_2025.06.06_12.45.24.864_taymau.png)" alt="Alt" width="300"/>
+
 ![Alt text](https://asset.cloudinary.com/dgezxosfy/d2ea37763d75731a2a7b52e4acb94fd0)
 ![Alt text](https://asset.cloudinary.com/dgezxosfy/f01eb6f4715c0d652a48909d00fface2)
 ![Alt text](https://asset.cloudinary.com/dgezxosfy/5529b2fcfff7bb435e5ddd329b76897d)
